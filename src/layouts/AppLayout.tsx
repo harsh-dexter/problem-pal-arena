@@ -8,7 +8,8 @@ import {
   LogOut, 
   Menu, 
   X,
-  Flame
+  Flame,
+  Settings
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -48,6 +49,11 @@ const AppLayout = () => {
       name: 'Problem Lists',
       path: '/app/problem-lists',
       icon: <ListChecks className="w-5 h-5" />
+    },
+    {
+      name: 'Settings',
+      path: '/app/settings',
+      icon: <Settings className="w-5 h-5" />
     }
   ];
 

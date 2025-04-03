@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Problems from "./pages/Problems";
 import ProblemLists from "./pages/ProblemLists";
 import ProblemListDetail from "./pages/ProblemListDetail";
+import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="problems" element={<Problems />} />
               <Route path="problem-lists" element={<ProblemLists />} />
               <Route path="problem-lists/:id" element={<ProblemListDetail />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
