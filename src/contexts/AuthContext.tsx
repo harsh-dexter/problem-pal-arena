@@ -5,6 +5,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  username: string; // Add username property
   avatar?: string;
 }
 
@@ -15,6 +16,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (name: string, email: string, password: string) => Promise<void>;
   signOut: () => void;
+  updateUserProfile: (userData: { name: string; email: string; username: string }) => void; // Add this function
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -52,6 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         id: '1',
         name: 'John Doe',
         email: email,
+        username: 'johndoe', // Add username to mock user
         avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John'
       };
       
@@ -74,6 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         id: '1',
         name: name,
         email: email,
+        username: name.toLowerCase().replace(/\s+/g, ''), // Generate username from name
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`
       };
       
@@ -81,6 +85,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem('user', JSON.stringify(mockUser));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const updateUserProfile = (userData: { name: string; email: string; username: string }) => {
+    if (user) {
+      const updatedUser = {
+        ...user,
+        ...userData
+      };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
     }
   };
 
@@ -97,7 +112,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isLoading,
         signIn,
         signUp,
-        signOut
+        signOut,
+        updateUserProfile
       }}
     >
       {children}
