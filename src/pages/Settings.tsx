@@ -58,7 +58,12 @@ const Settings = () => {
       // This is a mock implementation since we don't have a real backend
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      updateUserProfile(values);
+      // Ensure all required fields are present
+      updateUserProfile({
+        name: values.name,
+        email: values.email,
+        username: values.username
+      });
       
       toast({
         title: "Profile updated",

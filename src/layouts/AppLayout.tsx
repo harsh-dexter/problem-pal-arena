@@ -9,15 +9,19 @@ import {
   Menu, 
   X,
   Flame,
-  Settings
+  Settings,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const AppLayout = () => {
   const { user, isAuthenticated, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const isMobile = useIsMobile();
   const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
@@ -136,7 +140,7 @@ const AppLayout = () => {
 
       {/* Main content */}
       <div className="flex-1">
-        <header className="h-16 border-b border-slate-800 flex items-center px-4">
+        <header className="h-16 border-b border-slate-800 flex items-center px-4 justify-between">
           <Button
             variant="ghost"
             size="icon"
@@ -144,6 +148,20 @@ const AppLayout = () => {
             className={`${isSidebarOpen && 'lg:hidden'}`}
           >
             <Menu className="h-5 w-5" />
+          </Button>
+          
+          {/* Theme toggle button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
           </Button>
         </header>
         <main className="p-6">
